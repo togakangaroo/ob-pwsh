@@ -9,7 +9,7 @@
   Based on [[https://github.com/xchrishawk/ob-racket][=xchrishawk='s ~ob-racket~ plugin]]
 
   Fair warning - this is super raw
-
+  
 ** Version
    #+begin_src emacs-lisp
      (org-entry-get nil "version" t)
@@ -17,7 +17,7 @@
 
    #+RESULTS:
    : 0.1
-
+   
 ** Simple code block running powershell (via a global dotnet core ~pwsh~)
 
    #+begin_src pwsh
@@ -75,7 +75,7 @@
    return $numerator / 7
    #+end_src
 
-   And now I can use the results of that function in this python code block
+   And now I can use the results of that function in this python code block with the ~:var division_result=divide-it(numerator=213)~ header arg
    #+begin_src  python :results output :var division_result=divide-it(numerator=213) :var another_num=foo-val
      print(f'{division_result} + {another_num} is {division_result + another_num}')
    #+end_src
@@ -86,7 +86,7 @@
    :  is 30.4285714285714
    :   987
    :
-
+   
 * Inclusion
   Add to load path so tha we can require this
   #+begin_src emacs-lisp
