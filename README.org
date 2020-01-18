@@ -1,15 +1,15 @@
 * ~ob-pwsh~
   :PROPERTIES:
   :version:  0.1
-  :header-args: :exports both :eval no-export 
+  :header-args: :exports both :eval no-export
   :END:
 
   Org for powershell core! I wrote it!
-  
+
   Based on [[https://github.com/xchrishawk/ob-racket][=xchrishawk='s ~ob-racket~ plugin]]
 
   Fair warning - this is super raw
-  
+
 ** Version
    #+begin_src emacs-lisp
      (org-entry-get nil "version" t)
@@ -17,7 +17,7 @@
 
    #+RESULTS:
    : 0.1
-   
+
 ** Simple code block running powershell (via a global dotnet core ~pwsh~)
 
    #+begin_src pwsh
@@ -86,7 +86,7 @@
    :  is 30.4285714285714
    :   987
    :
-   
+
 * Inclusion
   Add to load path so tha we can require this
   #+begin_src emacs-lisp
@@ -102,26 +102,28 @@
   : ob-pwsh
 
   And now its loaded, you can go run the above.
-  
-  The default powershell command run is 
-  
+
+  The default powershell command run is
+
   #+begin_src emacs-lisp
-  org-babel-pwsh-command
+    org-babel-pwsh-command
   #+end_src
 
   #+RESULTS:
   : pwsh
-  
+
   If you installed this correctly the above should display something like ="pwsh"=.
-  
+
   You should make sure its installed in a location visible to the default shell, or you can set it to another value.
 
 * Work In Progress
 ** TODO =Ctrl-C Ctrl-C= Code inderect buffer thingy isn't working
    It thinks that there is something called =pwsh-mode= but there isn't, it's =powershell-mode=
-** TODO Sessions 
+** TODO Sessions
    This will require digging into how eg ob-python works
 ** TODO Post it to org mailing list
 ** TODO Melpa package
 ** TODO Inclusion in spacemacs powershell layer
 ** TODO Ok, this is dumb but my html exports is broken. Some error that might have to do with parinfer?
+** TODO Better return object format
+   Rather than outputting strings, convert powershell objects returned as =value= to elisp structures to take advantage of the fact tha we have a runtime
