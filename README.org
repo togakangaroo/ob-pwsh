@@ -1,7 +1,7 @@
 * ~ob-pwsh~
   :PROPERTIES:
   :version:  0.1
-  :header-args: :export both
+  :header-args: :export both :eval no-export 
   :END:
 
   Org for powershell core! I wrote it!
