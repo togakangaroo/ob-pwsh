@@ -1,7 +1,7 @@
 * ~ob-pwsh~
   :PROPERTIES:
   :version:  0.1
-  :header-args: :export both :eval no-export 
+  :header-args: :exports both :eval no-export 
   :END:
 
   Org for powershell core! I wrote it!
@@ -124,3 +124,4 @@
 ** TODO Post it to org mailing list
 ** TODO Melpa package
 ** TODO Inclusion in spacemacs powershell layer
+** TODO Ok, this is dumb but my html exports is broken. Some error that might have to do with parinfer?
