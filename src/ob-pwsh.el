@@ -27,7 +27,7 @@
          (expanded-body (org-babel-expand-body:pwsh body params))
          (result-type (nth 0 parsed-params))
          (vars (nth 1 parsed-params))
-         (temp-file (make-temp-file "ob-pwsh-")))
+         (temp-file (make-temp-file "ob-pwsh-" nil ".ps1")))
     (message (format "===vars %s" vars))
     ;; Build script in temporary file
     (with-temp-file temp-file
