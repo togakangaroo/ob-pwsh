@@ -8,6 +8,8 @@
 
 (add-to-list 'org-babel-tangle-lang-exts '("Pwsh" . "ps"))
 
+(add-to-list 'org-src-lang-modes '("pwsh" . powershell))
+
 (defvar org-babel-default-header-args:pwsh '((:lang . "pwsh"))
   "A list of default header args for Pwsh code blocks.")
 
