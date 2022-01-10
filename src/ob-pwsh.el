@@ -10,11 +10,14 @@
 
 (add-to-list 'org-src-lang-modes '("pwsh" . powershell))
 
-(defvar org-babel-default-header-args:pwsh '((:lang . "pwsh"))
-  "A list of default header args for Pwsh code blocks.")
+(defcustom org-babel-default-header-args:pwsh '((:lang . "pwsh"))
+  "A list of default header args for Pwsh code blocks."
+  :type '(alist :key-type (symbol :tag "Keyword") :value-type (string :tag "Value")))
 
-(defvar org-babel-command:pwsh "pwsh"
-  "The path to the Pwsh interpreter executable.")
+(defcustom org-babel-command:pwsh "pwsh"
+  "The path to the Pwsh interpreter executable."
+  :group 'ob-pwsh
+  :type 'string)
 
 ;; -- Babel Functions --
 
