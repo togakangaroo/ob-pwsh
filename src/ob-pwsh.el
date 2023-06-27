@@ -2,15 +2,22 @@
 
 (require 'ob)
 
+;; TODO require `powershell-mode' here as well?
+
 ;; -- Variables --
 
 (add-to-list 'org-babel-tangle-lang-exts '("Pwsh" . "ps"))
 
-(defvar org-babel-default-header-args:pwsh '((:lang . "pwsh"))
-  "A list of default header args for Pwsh code blocks.")
+(add-to-list 'org-src-lang-modes '("pwsh" . powershell))
 
-(defvar org-babel-command:pwsh "pwsh"
-  "The path to the Pwsh interpreter executable.")
+(defcustom org-babel-default-header-args:pwsh '((:lang . "pwsh"))
+  "A list of default header args for Pwsh code blocks."
+  :type '(alist :key-type (symbol :tag "Keyword") :value-type (string :tag "Value")))
+
+(defcustom org-babel-command:pwsh "pwsh"
+  "The path to the Pwsh interpreter executable."
+  :group 'ob-pwsh
+  :type 'string)
 
 ;; -- Babel Functions --
 
@@ -27,12 +34,12 @@
          (expanded-body (org-babel-expand-body:pwsh body params))
          (result-type (nth 0 parsed-params))
          (vars (nth 1 parsed-params))
-         (temp-file (make-temp-file "ob-pwsh-")))
+         (temp-file (make-temp-file "ob-pwsh-" nil ".ps1")))
     (message (format "===vars %s" vars))
     ;; Build script in temporary file
     (with-temp-file temp-file
       (let ((vars-string
-             (mapconcat (lambda (var) (format "$%s = %s;\n" (car var) (cdr var))) vars " ")))
+             (mapconcat (lambda (var) (format "$%s = %s;\n" (car var) (ob-pwsh--serialize-value (cdr var)))) vars " ")))
         (insert (format "%s\n\n%s"
                         vars-string
                         expanded-body)))
@@ -61,5 +68,29 @@ returned as a list."
          ((equal key :result-type) (setq result-type value))
          ((equal key :var) (push value vars)))))
     (list result-type vars)))
+
+(defun ob-pwsh--serialize-value (value)
+  "Serialize a value for use in a PowerShell script."
+  (cl-typecase value
+    (integer value)
+    (float value)
+    (character (ob-pwsh--serialize-stringlike value))
+    (string (ob-pwsh--serialize-stringlike value))
+    (symbol (ob-pwsh--serialize-stringlike value))
+    (cons (ob-pwsh--serialize-sequence value))
+    (t (error "Pwsh cannot currently serialize values of type %s." (type-of value)))))
+
+(defun ob-pwsh--serialize-stringlike (value)
+  "Serialize a string-like value for use in a PowerShell script. Relies on `powershell-mode'."
+  (with-temp-buffer
+    (push-mark)
+    (insert value)
+    (setq mark-active t)
+    (powershell-doublequote-selection (point-min) (point-max))
+    (buffer-string)))
+
+(defun ob-pwsh--serialize-sequence (value)
+  "Serialize a sequence for use in a PowerShell script."
+  (format "@(%s)" (mapconcat #'identity (ob-pwsh--serialize-value) ", ")))
 
 (provide 'ob-pwsh)
