@@ -10,6 +10,26 @@
 
   Fair warning - this is super raw
 
+
+** Install with Straight
+
+*** TODO Instructions to install from main project URL
+
+*** TODO Instructions to install with other package managers
+
+*** TODO Instructions to install manually
+
+*** From fpvmorais fork
+#+begin_src emacs-lisp
+(use-package ob-pwsh
+  :straight (ob-pwsh.el :type git
+                        :repo "https://github.com/fpvmorais/ob-pwsh.git"
+                        :local-repo "ob-pwsh")
+  :commands
+  (org-babel-execute:pwsh
+   org-babel-expand-body:pwsh))
+#+end_src
+
 ** Version
    #+begin_src emacs-lisp
      (org-entry-get nil "version" t)
@@ -117,7 +137,8 @@
   You should make sure its installed in a location visible to the default shell, or you can set it to another value.
 
 * Work In Progress
-** TODO =Ctrl-C Ctrl-C= Code inderect buffer thingy isn't working
+** DONE =Ctrl-C Ctrl-C= Code inderect buffer thingy isn't working
+- State "DONE"       from "TODO"       [2024-07-18 Thu 16:05]
    It thinks that there is something called =pwsh-mode= but there isn't, it's =powershell-mode=
 ** TODO Sessions
    This will require digging into how eg ob-python works
